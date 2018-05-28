@@ -1,0 +1,121 @@
+<h2 class="page-header">Explore</h2>
+
+<div id="container">
+  <p>Feel free to add a conference or visit already created ones</p>
+
+  <button [disabled]="loadingBlogs"type="button" name="button" class="btn btn-default" *ngIf="!newPost"(click)="reloadBlogs()"><span class="glyphicon glyphicon-repeat"></span>&nbsp;&nbsp;Reload Page</button>
+  <br/>
+  <br/>
+  <button type="button" name="button" class="btn btn-primary" *ngIf="!newPost"(click)="newBlogForm()">Add a new Conference</button>
+
+
+
+
+  <form [formGroup] = "form" name="blogForm" (submit)="onBlogSubmit()" *ngIf="newPost">
+
+    <!-- <Host> -->
+    <!-- <div class="form-group">
+      <label for="title">Host</label>
+        <div >
+          <input type="text"class="form-control" name="title" placeholder="Name of Host" autocomplete="off" formControlName="title">
+          <ul class="help-block">
+            <li *ngIf="form.controls.title.dirty && form.controls.title.errors?.required">This field is required.</li>
+            <li *ngIf="form.controls.title.dirty && form.controls.title.errors?.minlength||
+            form.controls.title.dirty && form.controls.title.errors?.maxlength">Max length: 100, Min length5.</li>
+            <li *ngIf="form.controls.title.dirty && form.controls.title.errors?.alphaNumericValidation">Must be a letter or number.</li>
+          </ul>
+        </div>
+    </div> -->
+    <!-- <Title> -->
+    <div class="form-group">
+      <label for="title">Topic of Discussion</label>
+        <div >
+          <input type="text"class="form-control" name="title" placeholder="Name of Conference" autocomplete="off" formControlName="title">
+          <ul class="help-block">
+            <li *ngIf="form.controls.title.dirty && form.controls.title.errors?.required">This field is required.</li>
+            <li *ngIf="form.controls.title.dirty && form.controls.title.errors?.minlength||
+            form.controls.title.dirty && form.controls.title.errors?.maxlength">Max length: 100, Min length5.</li>
+            <li *ngIf="form.controls.title.dirty && form.controls.title.errors?.alphaNumericValidation">Must be a letter or number.</li>
+          </ul>
+        </div>
+    </div>
+    <!-- <Body> -->
+    <div class="form-group">
+      <label for="title">Body</label>
+        <div>
+          <textarea name="body" row="8" cols="80" placeholder="Description of conference" class="form-control" formControlName="body"></textarea>
+          <ul class="help-block">
+            <li *ngIf="form.controls.title.dirty && form.controls.title.errors?.required">This field is required.</li>
+            <li *ngIf="form.controls.title.dirty && form.controls.title.errors?.minlength||
+            form.controls.title.dirty && form.controls.title.errors?.maxlength">Max length: 5000, Min length: 5.</li>
+            <li *ngIf="form.controls.title.dirty && form.controls.title.errors?.alphaNumericValidation">Must be a letter or number.</li>
+          </ul>
+        </div>
+    </div>
+<!-- <date of conference> -->
+    <!-- <div class="container form-group row">
+      <div  class="input-group" data-date-format="dd. MM .yyyy">
+        <label for="ex1" >Date of Conference</label>
+        <input type="date" name=""  id="datepicker" class="form-control">
+      </div>
+    </div> -->
+    <!-- <Venue> -->
+    <!-- <div class="form-group">
+      <label for="title">Venue:</label>
+        <div >
+          <input type="text"class="form-control" name="title" placeholder="Name of Conference" autocomplete="off" formControlName="title">
+          <ul class="help-block">
+            <li *ngIf="form.controls.title.dirty && form.controls.title.errors?.required">This field is required.</li>
+            <li *ngIf="form.controls.title.dirty && form.controls.title.errors?.minlength||
+            form.controls.title.dirty && form.controls.title.errors?.maxlength">Max length: 500, Min length5.</li>
+            <li *ngIf="form.controls.title.dirty && form.controls.title.errors?.alphaNumericValidation">Must be a letter or number.</li>
+          </ul>
+        </div>
+    </div> -->
+
+
+      <button [disabled]="processing"type="button" name="button" class="btn btn-warning" (click)="goBack()">Go Back</button>
+      <button [disabled]="processing " type="submit" name="button" class="btn btn-success" >submit</button>
+
+    </form>
+  </div>
+
+    <br/>
+    <br/>
+
+
+  <div *ngIf = "!newPost" class="col-xs-8 thumb">
+    <div class ="panel panel-primary" *ngFor="let blog of blogPosts">
+      <div class="panel-heading">
+        <!-- <h3 class="panel-title"> Host : {{ blog.host }}</h3> -->
+        <h3 class="panel-title"> Title : {{ blog.title }}</h3>
+      </div>
+
+        <div class="panel-body">
+          <h3 class="head">DESCRIPTION OF CONFERENCE</h3>
+          <p>{{blog.body}}</p>
+          <!-- <strong>Venue:</strong>{{blog.venue}} -->
+        </div>
+
+      <div class="panel-footer">
+            <strong> Posted By :</strong> {{blog.createdBy}}
+            <br/>
+            <strong>Date Created: </strong> {{blog.createdAt | date:'dd. MM .yyyy'}}
+            <br/>
+          <div *ngIf="username === blog.createdBy">
+            <strong>Interested : </strong> {{blog.likes}}
+          </div>
+              <a [routerLink] = "['/edit-blog/', blog._id]" *ngIf="username === blog.createdBy"><button type="button" name="button" class="btn btn-sm btn-info">Edit Post</button></a>
+              <a [routerLink] = "['/delete-blog/', blog._id]" *ngIf="username === blog.createdBy"><button type="button" name="button" class="btn btn-sm btn-danger">Delete Post</button></a>
+          <div class="dropdown">
+              <p><button [disabled]="blog.likedBy.indexOf(username) > -1" type="button" name="button"  class="btn btn-sm btn-success" *ngIf="username !== blog.createdBy" (click)="likeBlog(blog._id)">
+              <span class ="glyphicon glyphicon-thumbs-up">&nbsp;</span>I'm Interested  : {{blog.likes}}</button></p>
+              <p><button [disabled]="blog.dislikedBy.indexOf(username) > -1" type="button" name="button"  class="btn btn-sm btn-danger" *ngIf="username !== blog.createdBy" (click)="dislikeBlog(blog._id)">
+              <span class ="glyphicon glyphicon-thumbs-down">&nbsp;</span></button></p>
+            <!-- <div class = "dropdown-content">
+              <a [routerLink]="['/user/',liker]" *ngFor = "let liker of blog.likedBy">{{liker}}  {{blog.dislikes}}</a>
+            </div> -->
+        </div>
+      </div>
+    </div>
+  </div>
