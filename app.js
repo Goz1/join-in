@@ -27,7 +27,7 @@ const authentication = require('./routes/authentication')(router);
 const blogs =  require('./routes/blogs')(router);
 
 //port number
-const port = 8080;
+const port = process.env.PORT || 8080;
 
 //CORS middleware
 app.use(cors({
@@ -54,5 +54,5 @@ app.get('*', (req, res)=>{
 
 //start server
 app.listen(port,  () =>{
-  console.log('server started on port '+port);
+  console.log('server started on port '+ port);
 });
