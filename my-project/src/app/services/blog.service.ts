@@ -10,7 +10,7 @@ import {map} from 'rxjs/operators';
 export class BlogService {
 
   options;
-  // domain =  this.authService.domain;
+  domain =  this.authService.domain;
 
   constructor(
     private authService : AuthService,
@@ -31,43 +31,43 @@ export class BlogService {
 
     newBlog(blog){
     this.createAuthenticationHeaders();
-    return this.http.post('blogs/newBlog', blog, this.options).pipe(map(res => res.json()));
+    return this.http.post(this.domain + 'blogs/newBlog', blog, this.options).pipe(map(res => res.json()));
   }
 
 
   getAllBlogs(){
     this.createAuthenticationHeaders();
-      return this.http.get('blogs/allBlogs', this.options).pipe(map(res => res.json()));
+      return this.http.get(this.domain + 'blogs/allBlogs', this.options).pipe(map(res => res.json()));
   }
 
   getSingleBlog(id){
     this.createAuthenticationHeaders();
-      return this.http.get('blogs/singleBlog/' + id, this.options)
+      return this.http.get(this.domain + 'blogs/singleBlog/' + id, this.options)
       .pipe(map(res => res.json()));
   }
 
   editBlog(blog){
     this.createAuthenticationHeaders();
-      return this.http.put('blogs/updateBlog/', blog, this.options)
+      return this.http.put(this.domain + 'blogs/updateBlog/', blog, this.options)
       .pipe(map(res => res.json()));
   }
 
 
   deleteBlog(id){
     this.createAuthenticationHeaders();
-      return this.http.delete('blogs/deleteBlog/' + id, this.options)
+      return this.http.delete(this.domain + 'blogs/deleteBlog/' + id, this.options)
       .pipe(map(res => res.json()));
   }
 
   likeBlog(id){
     const blogData = { id: id};
-    return this.http.put('blogs/likeBlog/', blogData, this.options)
+    return this.http.put(this.domain + 'blogs/likeBlog/', blogData, this.options)
     .pipe(map(res => res.json()));
   }
 
   dislikeBlog(id){
     const blogData = { id: id};
-    return this.http.put('blogs/dislikeBlog/', blogData, this.options)
+    return this.http.put(this.domain + 'blogs/dislikeBlog/', blogData, this.options)
     .pipe(map(res => res.json()));
   }
 
