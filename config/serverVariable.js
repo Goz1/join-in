@@ -4,7 +4,7 @@ const config = {
 
   // port for application
   // portApp: 8080,
-    portApp: 18.195.119.226:80,
+    portApp: 80,
 
   // protractor plugin base url
   profactorUrl: 'http://localhost:4200/',
