@@ -4,6 +4,7 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const config = require('./config/database');
+const { corsApp, portApp } = require('./config/serverVariable');
 
 //connect to database
 mongoose.connect(config.database);
@@ -27,11 +28,11 @@ const authentication = require('./routes/authentication')(router);
 const blogs =  require('./routes/blogs')(router);
 
 //port number
-const port = process.env.PORT || 8080;
+const port = process.env.PORT || portApp;
 
 //CORS middleware
 app.use(cors({
-  origin:'http://localhost:4200'
+  origin: corsApp
 }));
 
 

@@ -1,4 +1,6 @@
+const { db } = require('./serverVariable');
+
 module.exports = {
-  database:'mongodb://chigo:chigo@ds014808.mlab.com:14808/join-in',
+  database:`mongodb://${db}`,
   secret: 'yoursecret'
 }
