@@ -9,7 +9,7 @@ import {map} from 'rxjs/operators';
 })
 export class AuthService {
 
-// domain = "http://localhost:8080/";
+domain = "18.195.119.226:80/";
 authToken;
 user;
 options;
@@ -39,12 +39,12 @@ options;
   }
 
   registerUser(user){
-    return this.http.post('authentication/register', user).pipe(map(res => res.json()));
+    return this.http.post(this.domain + 'authentication/register', user).pipe(map(res => res.json()));
   }
 
 
   login(user){
-    return this.http.post('authentication/login', user).pipe(map(res => res.json()));
+    return this.http.post(this.domain + 'authentication/login', user).pipe(map(res => res.json()));
   }
 
   storeUserData(token, user){
@@ -63,7 +63,7 @@ options;
 
   getProfile(){
     this.createAuthenticationHeaders();
-    return this.http.get('authentication/profile',this.options).pipe(map(res => res.json()));
+    return this.http.get(this.domain + 'authentication/profile',this.options).pipe(map(res => res.json()));
   }
 
   // loggedIn(){
