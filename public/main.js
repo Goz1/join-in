@@ -1235,6 +1235,7 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 var AuthService = /** @class */ (function () {
     function AuthService(http) {
         this.http = http;
+        // CHANGE TO custom url for auth service
         this.domain = "http://localhost:8080/";
     }
     AuthService.prototype.createAuthenticationHeaders = function () {
