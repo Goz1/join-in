@@ -1,0 +1,78 @@
+diff --git a/app.js b/app.js
+index 7599da3..1a81b34 100644
+--- a/app.js
++++ b/app.js
+@@ -4,6 +4,7 @@ const cors = require('cors');
+ const bodyParser = require('body-parser');
+ const mongoose = require('mongoose');
+ const config = require('./config/database');
++const { corsApp, portApp } = require('./config/serverVariable');
+ 
+ //connect to database
+ mongoose.connect(config.database);
+@@ -27,11 +28,11 @@ const authentication = require('./routes/authentication')(router);
+ const blogs =  require('./routes/blogs')(router);
+ 
+ //port number
+-const port = process.env.PORT || 8080;
++const port = process.env.PORT || portApp;
+ 
+ //CORS middleware
+ app.use(cors({
+-  origin:'http://localhost:4200'
++  origin: corsApp
+ }));
+ 
+ 
+diff --git a/config/database.js b/config/database.js
+index beba27d..62049b5 100644
+--- a/config/database.js
++++ b/config/database.js
+@@ -1,4 +1,6 @@
++const { db } = require('./serverVariable');
++
+ module.exports = {
+-  database:'mongodb://chigo:chigo@ds014808.mlab.com:14808/join-in',
++  database:`mongodb://${db}`,
+   secret: 'yoursecret'
+ }
+diff --git a/my-project/e2e/protractor.conf.js b/my-project/e2e/protractor.conf.js
+index 86776a3..1ff6892 100644
+--- a/my-project/e2e/protractor.conf.js
++++ b/my-project/e2e/protractor.conf.js
+@@ -2,6 +2,7 @@
+ // https://github.com/angular/protractor/blob/master/lib/config.ts
+ 
+ const { SpecReporter } = require('jasmine-spec-reporter');
++const { profactorUrl } = require('../../config/serverVariable');
+ 
+ exports.config = {
+   allScriptsTimeout: 11000,
+@@ -12,7 +13,7 @@ exports.config = {
+     'browserName': 'chrome'
+   },
+   directConnect: true,
+-  baseUrl: 'http://localhost:4200/',
++  baseUrl: profactorUrl,
+   framework: 'jasmine',
+   jasmineNodeOpts: {
+     showColors: true,
+@@ -25,4 +26,4 @@ exports.config = {
+     });
+     jasmine.getEnv().addReporter(new SpecReporter({ spec: { displayStacktrace: true } }));
+   }
+-};
+\ No newline at end of file
++};
+diff --git a/public/main.js b/public/main.js
+index 3d211c0..25a222e 100644
+--- a/public/main.js
++++ b/public/main.js
+@@ -1235,6 +1235,7 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+ var AuthService = /** @class */ (function () {
+     function AuthService(http) {
+         this.http = http;
++        // CHANGE TO custom url for auth service
+         this.domain = "http://localhost:8080/";
+     }
+     AuthService.prototype.createAuthenticationHeaders = function () {

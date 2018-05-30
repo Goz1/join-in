@@ -3,7 +3,8 @@ const config = {
   cors: 'http://localhost:4200',
 
   // port for application
-  portApp: 8080,
+  // portApp: 8080,
+    portApp: 80,
 
   // protractor plugin base url
   profactorUrl: 'http://localhost:4200/',
