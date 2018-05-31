@@ -1237,7 +1237,8 @@ var AuthService = /** @class */ (function () {
         this.http = http;
         // CHANGE TO custom url for auth service
         // this.domain = "http://localhost:8080/";
-				this.domain = "18.195.119.226:80";
+				// this.domain = "18.195.119.226:80";
+				this.domani = "";
     }
     AuthService.prototype.createAuthenticationHeaders = function () {
         this.loadToken();

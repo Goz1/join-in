@@ -9,7 +9,7 @@ import {map} from 'rxjs/operators';
 })
 export class AuthService {
 
-domain = "http://18.195.119.226:80/";
+//domain = "http://18.195.119.226:80/";
 authToken;
 user;
 options;
