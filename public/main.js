@@ -1238,7 +1238,7 @@ var AuthService = /** @class */ (function () {
         // CHANGE TO custom url for auth service
         // this.domain = "http://localhost:8080/";
 				// this.domain = "18.195.119.226:80";
-				this.domani = "";
+
     }
     AuthService.prototype.createAuthenticationHeaders = function () {
         this.loadToken();
@@ -1254,10 +1254,10 @@ var AuthService = /** @class */ (function () {
         this.authToken = token;
     };
     AuthService.prototype.registerUser = function (user) {
-        return this.http.post(this.domain + 'authentication/register', user).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(function (res) { return res.json(); }));
+        return this.http.post('authentication/register', user).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(function (res) { return res.json(); }));
     };
     AuthService.prototype.login = function (user) {
-        return this.http.post(this.domain + 'authentication/login', user).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(function (res) { return res.json(); }));
+        return this.http.post('authentication/login', user).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(function (res) { return res.json(); }));
     };
     AuthService.prototype.storeUserData = function (token, user) {
         localStorage.setItem('token', token);
@@ -1272,7 +1272,7 @@ var AuthService = /** @class */ (function () {
     };
     AuthService.prototype.getProfile = function () {
         this.createAuthenticationHeaders();
-        return this.http.get(this.domain + 'authentication/profile', this.options).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(function (res) { return res.json(); }));
+        return this.http.get('authentication/profile', this.options).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(function (res) { return res.json(); }));
     };
     AuthService = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({
@@ -1331,35 +1331,35 @@ var BlogService = /** @class */ (function () {
     };
     BlogService.prototype.newBlog = function (blog) {
         this.createAuthenticationHeaders();
-        return this.http.post(this.domain + 'blogs/newBlog', blog, this.options).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(function (res) { return res.json(); }));
+        return this.http.post('blogs/newBlog', blog, this.options).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(function (res) { return res.json(); }));
     };
     BlogService.prototype.getAllBlogs = function () {
         this.createAuthenticationHeaders();
-        return this.http.get(this.domain + 'blogs/allBlogs', this.options).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(function (res) { return res.json(); }));
+        return this.http.get('blogs/allBlogs', this.options).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(function (res) { return res.json(); }));
     };
     BlogService.prototype.getSingleBlog = function (id) {
         this.createAuthenticationHeaders();
-        return this.http.get(this.domain + 'blogs/singleBlog/' + id, this.options)
+        return this.http.get('blogs/singleBlog/' + id, this.options)
             .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(function (res) { return res.json(); }));
     };
     BlogService.prototype.editBlog = function (blog) {
         this.createAuthenticationHeaders();
-        return this.http.put(this.domain + 'blogs/updateBlog/', blog, this.options)
+        return this.http.put('blogs/updateBlog/', blog, this.options)
             .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(function (res) { return res.json(); }));
     };
     BlogService.prototype.deleteBlog = function (id) {
         this.createAuthenticationHeaders();
-        return this.http.delete(this.domain + 'blogs/deleteBlog/' + id, this.options)
+        return this.http.delete('blogs/deleteBlog/' + id, this.options)
             .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(function (res) { return res.json(); }));
     };
     BlogService.prototype.likeBlog = function (id) {
         var blogData = { id: id };
-        return this.http.put(this.domain + 'blogs/likeBlog/', blogData, this.options)
+        return this.http.put('blogs/likeBlog/', blogData, this.options)
             .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(function (res) { return res.json(); }));
     };
     BlogService.prototype.dislikeBlog = function (id) {
         var blogData = { id: id };
-        return this.http.put(this.domain + 'blogs/dislikeBlog/', blogData, this.options)
+        return this.http.put('blogs/dislikeBlog/', blogData, this.options)
             .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(function (res) { return res.json(); }));
     };
     BlogService = __decorate([
